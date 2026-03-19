@@ -1,4 +1,5 @@
 import userModel from "../models/user.model.js";
+import { sendMail } from "../services/mail.service.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -31,6 +32,16 @@ export async function userRegister(req, res) {
 
   res.cookie("token", token);
 
+  await sendMail({
+    to:email,
+    subject: "Welcome to perplexity",
+    html: `
+    <p>Hi ${user.username},</p>
+    <p>This is team perplexity to meet with you for a speacial candidate</p>
+    <p>Best regards, <br> The perplexity team</p>
+    `
+  })
+
   res.status(201).json({
     message: `Profile created successfully for ${user.username}`,
     user,
@@ -44,7 +55,7 @@ export async function userLogin(req, res) {
 
     const user = await userModel.findOne({
       $or: [{ username }, { email }],
-    });
+    }).select("+password");
 
     if (!user) {
       return res.status(404).json({
@@ -70,7 +81,14 @@ export async function userLogin(req, res) {
 
     res.status(201).json({
       message: `${user.username} you logged in successfully`,
-      user,
+      user:{
+        id:user._id,
+        username:user.username,
+        email:user.email,
+        verified:user.verified,
+        createdAt:user.createdAt,
+        updatedAt:user.updatedAt
+      },
       token,
     });
   } catch (err) {
@@ -78,4 +96,22 @@ export async function userLogin(req, res) {
       message: "forbidden content",
     });
   }
+}
+
+export async function getMe(req, res) {
+  const userId = req.user.id;
+
+  const user = await userModel.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found by this request",
+    });
+  }
+
+  res.status(200).json({
+    message: `${user.username} your profile successfully fetched`,
+    success: true,
+    user,
+  });
 }
