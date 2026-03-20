@@ -33,14 +33,16 @@ export async function userRegister(req, res) {
   res.cookie("token", token);
 
   await sendMail({
-    to:email,
+    to: email,
     subject: "Welcome to perplexity",
     html: `
     <p>Hi ${user.username},</p>
     <p>This is team perplexity to meet with you for a speacial candidate</p>
+    <p>Click the link to to verified your account <a href='http://localhost:3000/api/auth/verified?token=${token}'>Verify email</a></p>,
+    <p style='color:red;'>If you never know about this never click on this link</p>
     <p>Best regards, <br> The perplexity team</p>
-    `
-  })
+    `,
+  });
 
   res.status(201).json({
     message: `Profile created successfully for ${user.username}`,
@@ -53,9 +55,11 @@ export async function userLogin(req, res) {
   try {
     const { username, email, password } = req.body;
 
-    const user = await userModel.findOne({
-      $or: [{ username }, { email }],
-    }).select("+password");
+    const user = await userModel
+      .findOne({
+        $or: [{ username }, { email }],
+      })
+      .select("+password");
 
     if (!user) {
       return res.status(404).json({
@@ -81,13 +85,13 @@ export async function userLogin(req, res) {
 
     res.status(201).json({
       message: `${user.username} you logged in successfully`,
-      user:{
-        id:user._id,
-        username:user.username,
-        email:user.email,
-        verified:user.verified,
-        createdAt:user.createdAt,
-        updatedAt:user.updatedAt
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        verified: user.verified,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
       },
       token,
     });
@@ -113,5 +117,22 @@ export async function getMe(req, res) {
     message: `${user.username} your profile successfully fetched`,
     success: true,
     user,
+  });
+}
+
+export async function verifyMail(req, res) {
+  const user = await userModel.findOne({ username: req.user.username });
+
+  if (!user) {
+    return res.status(404).json({
+      meesage: "user not found by this account",
+    });
+  }
+
+  user.verified = true;
+  user.save();
+
+  res.status(200).json({
+    message: "email verified successfully",
   });
 }
