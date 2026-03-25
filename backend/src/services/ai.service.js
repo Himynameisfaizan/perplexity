@@ -1,14 +1,43 @@
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { ChatMistralAI } from "@langchain/mistralai";
+import { AIMessage, createAgent, HumanMessage } from "langchain";
+import { TavilySearch } from "@langchain/tavily";
+import readline from "readline/promises";
 
-const model = new ChatGoogleGenerativeAI({
-  model: "gemini-2.5-flash-lite",
-  apiKey: process.env.GEMINI_API_KEY,
+const rl = new readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
 });
 
-export async function testAi() {
-  const response = await model.invoke(
-    "what is the capital of india and why? explain in 100 words!",
-  );
+const model = new ChatMistralAI({
+  model: "mistral-small-latest",
+});
 
-  console.log(response.text);
+const tavilyTool = new TavilySearch({
+  maxResults: 3,
+});
+
+const agent = new createAgent({
+  model: model,
+  tools: [tavilyTool]
+});
+
+const messages = [];
+export async function testAi() {
+  while (true) {
+    const userInput = await rl.question("You: ");
+
+    // user message store
+    messages.push(new HumanMessage(userInput));
+
+    const response = await agent.invoke({
+      messages: messages,
+    });
+
+    const aiReply = response.messages.at(-1).content;
+
+    console.log("AI:", aiReply);
+
+    // AI reply bhi store
+    messages.push(new AIMessage(aiReply));
+  }
 }
