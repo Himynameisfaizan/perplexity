@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    type: 'OAuth2',
+    type: "OAuth2",
     user: process.env.GOOGLE_USER,
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -20,7 +20,7 @@ transporter
     console.log("Email transporter getting error", err);
   });
 
-export async function sendMail({ to, subject, html, text }) {
+export async function sendMail({ to, subject, html, text= "" }) {
   const mailOptions = {
     from: process.env.GOOGLE_USER,
     to,
@@ -30,4 +30,5 @@ export async function sendMail({ to, subject, html, text }) {
   };
 
   const details = await transporter.sendMail(mailOptions);
+  return ("sent email successfully to", to);
 }
