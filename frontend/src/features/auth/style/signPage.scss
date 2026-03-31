@@ -1,0 +1,170 @@
+:root {
+  --white: white;
+}
+
+@mixin flex-col($gap: 0) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+main {
+  width: 100%;
+  padding: 4rem 0;
+  background: url(../../../../public/images/background/back2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .main {
+    height: 80%;
+    width: 75%;
+    background: url(../../../../public/images/background/back2.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    box-shadow: 0 0 5px #4e0355da;
+    border-radius: 10px;
+    padding: 1.5rem 3rem;
+    @include flex-col(1.4rem);
+
+    .logo {
+      h3 {
+        color: var(--white);
+        font-size: 2.6rem;
+        font-family: "poppins-xb";
+        letter-spacing: 2px;
+      }
+    }
+
+    .content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .welcome {
+        width: 50%;
+        @include flex-col(2rem);
+
+        .welcome-heading {
+          h2 {
+            color: var(--white);
+            font-size: 3.5rem;
+            font-family: "poppins-m";
+            letter-spacing: 0.6px;
+          }
+        }
+
+        .welcome-line {
+          width: 3rem;
+          height: 3px;
+          background-color: var(--white);
+          border-radius: 5px;
+        }
+
+        .welcome-para {
+          width: 80%;
+          color: var(--white);
+          font-family: "poppins-r";
+          font-size: 0.89rem;
+          line-height: 1.5rem;
+        }
+
+        .welcome-btn {
+          .btn {
+            background: linear-gradient(to right, #f7520b, #d0298e);
+            padding: 0.4rem 0.8rem;
+            outline: none;
+            border: none;
+            border-radius: 0.3rem;
+            color: var(--white);
+            font-family: "poppins-m";
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+          }
+          .btn:hover {
+            background: linear-gradient(to right, #ec591a, #ce3591);
+          }
+        }
+      }
+
+      .login {
+        width: 40%;
+        background-color: #6d6d6d60;
+        backdrop-filter: blur(1px);
+        padding: 2rem 0;
+        border-radius: 8px;
+
+        .login-heading {
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+
+          h2 {
+            color: var(--white);
+            font-size: 1.8rem;
+            letter-spacing: 0.8px;
+          }
+
+          .login-line {
+            border-bottom: 2px solid white;
+          }
+        }
+
+        .login-form {
+          padding: 0.5rem 2.5rem;
+          form {
+            @include flex-col(1.5rem);
+
+            .form-input {
+              @include flex-col(0.5rem);
+
+              color: var(--white);
+              font-size: 0.9rem;
+              letter-spacing: 0.6px;
+
+              input {
+                border: none;
+                outline: none;
+                padding: 0.5rem 0.8rem;
+                border-radius: 1rem;
+                background-color: #fffdfd3a;
+                color: #ffffff;
+                font-family: "poppins-m";
+                letter-spacing: 0.6px;
+              }
+            }
+
+            .form-btn {
+              @include flex-col(0.5rem);
+
+              input {
+                background: linear-gradient(to right, #f7520b, #d0298e);
+                padding: 0.5rem 0.8rem;
+                outline: none;
+                border: none;
+                border-radius: 1rem;
+                color: var(--white);
+                font-family: "poppins-m";
+                cursor: pointer;
+                transition: 0.3s ease-in-out;
+                width: 100%;
+              }
+              .form-btn input:hover {
+                background: linear-gradient(to right, #ec591a, #ce3591);
+              }
+            }
+          }
+        }
+
+        // .social-btn {
+        // }
+      }
+    }
+  }
+}
