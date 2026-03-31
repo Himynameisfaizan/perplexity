@@ -1,5 +1,5 @@
 import React from 'react'
-import "./style/signPage.scss";
+import "../style/signPage.scss";
 
 
 const Login = () => {

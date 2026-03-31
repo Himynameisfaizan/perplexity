@@ -1,0 +1,68 @@
+:root {
+  --white: white;
+}
+
+@mixin flex-center($align: center, $justify: center, $gap: 0) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+
+header {
+  padding: 1rem;
+  @include flex-center(center, end, 1rem);
+
+  .model {
+    background-color: #ffffff2a;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.7rem;
+    width: fit-content;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    @include flex-center(center, space-between);
+
+    h3 {
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.8px;
+    }
+  }
+
+  .model:hover {
+    background-color: #ffffff3a;
+  }
+
+  .option {
+    border-radius: 0.7rem;
+    padding: 0 0.3rem;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+  }
+
+  .option:hover {
+    background-color: #ffffff3a;
+  }
+}
+
+// sidebar{
+//     background-color: red;
+//     height: 100vh;
+//     width: 10%;
+// }
+
+.home-section {
+  width: 100%;
+  height: 100vh;
+  background-color: #0c1831;
+  background-image:
+    radial-gradient(circle at center, transparent 0%, #0b0e14 60%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    40px 40px,
+    40px 40px;
+
+  color: white;
+}
