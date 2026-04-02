@@ -1,8 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../style/signPage.scss";
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useAuth } from '../hooks/useAuth';
 
 
 const Login = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+    const navigate = useNavigate()
+
+    const user = useSelector(state=> state.auth.user)
+    const loading = useSelector(state=> state.auth.loading)
+
+    const { handleLogin } = useAuth()
+
+   const handleForm = async (e)=>{
+        e.preventDefault()
+
+        const payload = {
+            email,
+            password
+        }
+
+        await handleLogin(payload)
+        setEmail('')
+        setPassword('')
+        navigate("/")
+    }
+
+     if(!loading && user){
+        return <Navigate to="/" replace />
+    }
+
+
   return (
     <>
     <main>
@@ -29,14 +61,28 @@ const Login = () => {
                     <h2 className='login-line'> in</h2>
                 </div>
                 <div className="login-form">
-                    <form>
+                    <form onSubmit={handleForm}>
                         <div className="form-input">
+                            
                             <label>User Name</label>
-                            <input type="text" value='John doe'/>
+
+                            <input 
+                            type="text" 
+                            value={email}
+                            onChange={(e)=>{setEmail(e.target.value)}}
+                            placeholder='John doe'/>
+
                         </div>
                         <div className="form-input">
+
                             <label>Password</label>
-                            <input type="password" value='faizan'/>
+
+                            <input 
+                            type="password" 
+                            value={password}
+                            onChange={(e)=> {setPassword(e.target.value)}}
+                            placeholder='faizan'/>
+
                         </div>
                         <div className="form-btn">
                             <input type="submit" value="Submit"/>
