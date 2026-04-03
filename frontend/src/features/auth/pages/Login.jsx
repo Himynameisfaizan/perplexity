@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "../style/signPage.scss";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAuth } from '../hooks/useAuth';
 
@@ -19,15 +19,15 @@ const Login = () => {
    const handleForm = async (e)=>{
         e.preventDefault()
 
-        const payload = {
-            email,
-            password
-        }
+        const res = await handleLogin({email, password})
+        console.log(email, password)
+        
+        if(res.success){
 
-        await handleLogin(payload)
-        setEmail('')
-        setPassword('')
-        navigate("/")
+            navigate("/")
+        } else{
+            console.log('login failed')
+        }
     }
 
      if(!loading && user){

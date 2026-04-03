@@ -97,7 +97,7 @@ export async function userLogin(req, res) {
     });
   } catch (err) {
     return res.status(403).json({
-      message: "forbidden content",
+      message: `forbidden content ${err}`,
     });
   }
 }
