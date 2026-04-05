@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export async function identifyUser(req, res, next) {
-  const token = req.cookies.token;
+  const token = req.cookies.token || req.query.token;
 
   if (!token) {
     return res.status(401).json({

@@ -121,7 +121,8 @@ export async function getMe(req, res) {
 }
 
 export async function verifyMail(req, res) {
-  const user = await userModel.findOne({ username: req.user.username });
+ try{
+   const user = await userModel.findOne({ username: req.user.username });
 
   if (!user) {
     return res.status(404).json({
@@ -130,9 +131,14 @@ export async function verifyMail(req, res) {
   }
 
   user.verified = true;
-  user.save();
+  await user.save();
+  
 
   res.status(200).json({
     message: "email verified successfully",
   });
+ }
+ catch(err){
+  return res.status(500).json({message: `Internal server error: ${err}`})
+ }
 }

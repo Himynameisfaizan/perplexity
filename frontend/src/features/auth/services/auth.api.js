@@ -12,7 +12,7 @@ export async function register({username, email, password}) {
     password,
   });
 
-  return (response, data);
+  return response.data;
 }
 
 export async function login({email, password}) {

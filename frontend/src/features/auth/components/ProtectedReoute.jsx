@@ -11,7 +11,7 @@ const ProtectedReoute = () => {
     }
 
     if(!user){
-        return <Navigate to="/login" replace/>
+        return <Navigate to="/auth/signin" replace/>
     }
 
   return <Outlet />

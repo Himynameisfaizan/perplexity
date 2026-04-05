@@ -8,6 +8,13 @@
   gap: $gap;
 }
 
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
 main {
   width: 100%;
   padding: 4rem 0;
@@ -138,6 +145,11 @@ main {
                 font-family: "poppins-m";
                 letter-spacing: 0.6px;
               }
+
+              input::placeholder{
+                color: white;
+                opacity: 0.7;
+              }
             }
 
             .form-btn {
@@ -162,8 +174,24 @@ main {
           }
         }
 
-        // .social-btn {
-        // }
+        .link-btn {
+          @include flex-center();
+          p{
+            color: var(--white);
+            font-size: 0.9rem;
+            padding-top: 0.8rem;
+
+            a{
+              color: #f57e7e;
+              text-decoration: none;
+            }
+            
+            a:hover{
+              text-decoration: underline;
+              color: #fa6b6b;
+            }
+          }
+        }
       }
     }
   }
