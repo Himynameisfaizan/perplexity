@@ -5,9 +5,12 @@ const Sidebar = () => {
   return (
     <>
     
-    <sidebar>
-        <i class="ri-side-bar-line"></i>
-    </sidebar>
+    <div className='sidebar'>
+       <div className="sidebar-header">
+        <img src="/images/logo/logo.png" alt="" />
+        <i className="ri-layout-right-2-line"></i>
+       </div>
+    </div>
     
     
     </>

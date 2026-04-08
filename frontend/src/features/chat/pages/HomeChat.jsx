@@ -22,7 +22,6 @@ const HomeChat = () => {
     <div className='home-section'>
         <div>
             <HeaderChat/>
-            {/* <Sidebar /> */}
         </div>
         {/* <h2>Hello </h2>
         <h2>Everyone!</h2> */}

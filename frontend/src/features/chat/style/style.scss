@@ -10,8 +10,26 @@
 }
 
 header {
-  padding: 1rem;
-  @include flex-center(center, end, 1rem);
+  @include flex-center(start,space-between);
+  
+  
+  .header-sidebar{
+    @include flex-center(start,space-between );
+    padding: 1rem;
+    background-color: red;
+    width: 16%;
+    height: 100vh;
+
+    img{
+      object-fit: cover;
+      height: 3rem;
+      width: 3rem;
+    }
+  }
+
+  .header-option{
+    @include flex-center(center,center ,0.5rem );
+    padding: 1rem;
 
   .model {
     background-color: #ffffff2a;
@@ -44,12 +62,7 @@ header {
     background-color: #ffffff3a;
   }
 }
-
-// sidebar{
-//     background-color: red;
-//     height: 100vh;
-//     width: 10%;
-// }
+}
 
 .home-section {
   width: 100%;
